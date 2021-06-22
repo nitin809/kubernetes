@@ -1,0 +1,21 @@
+kind: Pod
+apiVersion: v1
+
+metadata:
+  name: nitin
+  namespace: default
+  labels:
+    team: cloudthat
+
+spec:
+  containers:
+   - name: cont1
+     image: nginx
+     ports:  ## the ports within the container
+       - name: http
+         containerPort: 80
+       - name: https
+         containerPort: 443
+
+       
+        

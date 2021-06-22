@@ -1,0 +1,24 @@
+{
+    "kind": "Pod",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "testpod",
+        "creationTimestamp": null,
+        "labels": {
+            "evn": "dev",
+            "team": "ct"
+        }
+    },
+    "spec": {
+        "containers": [
+            {
+                "name": "testpod",
+                "image": "httpd",
+                "resources": {}
+            }
+        ],
+        "restartPolicy": "Always",
+        "dnsPolicy": "ClusterFirst"
+    },
+    "status": {}
+}

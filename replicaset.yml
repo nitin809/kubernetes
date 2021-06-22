@@ -1,0 +1,27 @@
+kind: ReplicaSet  ## kubectl api-resources
+apiVersion: apps/v1
+metadata:  ## replicaset metadata
+  name: rs1
+  namespace: default
+  labels:
+    type: app
+spec:           # replicaset spec
+  replicas: 4   # if you didn't mention replias by default it creates 1 replica
+  template:
+    metadata:  # pod metadata
+      #name: test  the names of pod are randomly created by kubernetes, we do not need to mention any name
+      labels:
+        type: app
+    spec:      # pod spec details
+      restartPolicy: Always
+      #initContainers:
+      containers:
+        - name: cont1
+          image: lerndevops/samplepyapp:v1
+          ports:
+            - name: http
+              containerPort: 3000
+  selector:
+    matchLabels:
+      type: app
+

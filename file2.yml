@@ -1,0 +1,29 @@
+kind: Pod   ## kubectl api-resources
+apiVersion: v1 
+metadata:
+  name: multi-cont-pod 
+  namespace: default
+  labels:   ## defining labels for a pod is mandatory / we have to define atleast one label 
+    team: cloudthat  ## here both key & value is your choice 
+spec:
+  restartPolicy: Always 
+  containers:
+    - name: cont1
+      image: nginx
+      ports:  ## the ports within the container 
+       - name: http
+         containerPort: 80
+       - name: https
+         containerPort: 443
+    - name: cont2
+      image: tomcat
+      ports:  ## the ports within the container 
+       - name: http
+         containerPort: 8080
+       - name: https
+         containerPort: 8443
+    - name: cont3
+      image: centos
+      command: ["bash", "-c", "sleep 90" ]
+
+

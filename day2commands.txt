@@ -1,0 +1,241 @@
+    1  set-hostname hostnamectl master
+    2  hostnamectl set-hostname master
+    3  apt-get remove docker docker-engine docker.io containerd runc
+    4  apt-get update
+    5  apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+    6  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    7  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    8  apt-get update
+    9  apt-get install -y docker-ce docker-ce-cli containerd.io
+   10  sudo reboot
+   11  apt-get update
+   12  apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+   13  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+   14  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+   15  apt-get update ; clear
+   16  apt-get install -y docker-ce
+   17  service docker start ; clear
+   18  echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   19  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+   20  apt-get update ; clear
+   21  apt-get install -y kubelet kubeadm kubectl
+   22  docker ps
+   23  kubelet -v
+   24  kubeadm init
+   25  mkdir -p $HOME/.kube
+   26  cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+   27  chown $(id -u):$(id -g) $HOME/.kube/config
+   28  kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+   29  kubectl get nodes
+   30  kubectl get nodes --all-namespaces
+   31  kubectl get nodes
+   32  kubectl get nodes --all-namespaces
+   33  kubectl get nodes -o wide
+   34  kubectl get nodes -o wide --all-namespaces
+   35  kubectl get podes -o wide --all-namespaces
+   36  kubectl get pods -o wide --all-namespaces
+   37  kubectl run pod1 --image=nginx
+   38  kubectl get pods
+   39  kubectl get pods -o wide
+   40  curl 10.36.0.1:80
+   41  kubectl describe pod pod1
+   42  kubectl get pods
+   43  kubectl delete pod pod1
+   44  kubectl run pod1 --image=nginx
+   45  kubectl run pod1 --image=tomcat
+   46  kubectl run pod2 --image=tomcat
+   47  kubectl get pods
+   48  kubectl logs  --follow pod1
+   49  kubectl exec -it pod1 -- bash
+   50  kubectl exec pod1 ls -l
+   51  kubectl exec pod1 -- ls -l
+   52  kubectl exec pod1 -- java -version
+   53  kubectl exec pod2 -- java -version
+   54  history
+   55  kubectl get pods --all-namespaces
+   56  kubectl get pods kube-system
+   57  kubectl get pods --namespaces kube-system
+   58  kubectl get pods --namespace kube-system
+   59  kubectl get pods --namespace 
+   60  kubectl get pods --namespace default
+   61  kubectl get pods
+   62  kubectl get pods -n kubesystem
+   63  kubectl get pods -namespace kubesystem
+   64  kubectl get pods -n kube-system
+   65  kubectl get pods -namespace kube-system
+   66  kubectl get pods --namespace kube-system
+   67  kubectl get namespaces
+   68  kubectl create namespace team1
+   69  kubectl create namespace team2
+   70  kubectl get ns
+   71  kubectl get ns # ns --> namespaces
+   72  kubectl run pod1 --image=nginx -n team1
+   73  kubectl run pod1 --image=nginx -n team2
+   74  kubectl get pods --all-namespaces
+   75  kubectl delete pod pod1 -n team1
+   76  kubectl delete pod pod1 -n team2
+   77  kubectl get pods
+   78  kubectl get namespaces
+   79  kubectl get pods --all-namespaces
+   80  vi podx.yml
+   81  kubectl api-resources
+   82  vi podx.yml 
+   83  kubectl create -f podx.yml
+   84  vi podx.yml 
+   85  kubectl create -f podx.yml
+   86  vi podx.yml 
+   87  kubectl create -f podx.yml
+   88  vi podx.yml 
+   89  kubectl create -f podx.yml
+   90  vi podx.yml 
+   91  kubectl create -f podx.yml
+   92  vi podx.yml 
+   93  kubectl create -f podx.yml
+   94  kubectl get pods
+   95  kubectl get pods --show-labels
+   96  kubectl get pods -l run
+   97  kubectl get pods -l run=pod1
+   98  vi file2.yml
+   99  ls -l
+  100  kubectl create -f file2.yml 
+  101  kubectl get pods
+  102  kubectl exec -it multi-cont-pod -- bash
+  103  kubectl exec -it multi-cont-pod -c cont1 -- bash
+  104  kubectl exec -it multi-cont-pod -c cont3 -- bash
+  105  kubectl logs multi-cont-pod
+  106  kubectl logs multi-cont-pod -c cont1
+  107  kubectl logs multi-cont-pod -c cont2
+  108  kubectl logs multi-cont-pod -c cont3
+  109  kubectl get pods -o wide
+  110  kubectl describe pod multi-cont-pod
+  111  kubectl logs multi-cont-pod -c cont3
+  112  curl 10.44.0.2
+  113  curl 10.44.0.2:8080
+  114  vi initpod.yml
+  115  ls
+  116  kubectl create -f initpod.yml 
+  117  watch kubectl get pods
+  118  kubectl descirb pod init-cont-pod1
+  119  kubectl descirbe pod init-cont-pod1
+  120  kubectl describe pod init-cont-pod1
+  121  cd /var/lib/
+  122  ls
+  123  cd /home/ubuntu/
+  124  ls
+  125  kubectl get pods
+  126  ls
+  127  cat podx.yml 
+  128  kubectl get pods
+  129  kubectl delete pod nitin-node1
+  130  kubectl get pods
+  131  cd /var/lib/kubelet/
+  132  ls
+  133  vi config.yaml 
+  134  cd /etc/kubernetes/manifests/
+  135  ls
+  136  cd /home/ubuntu/
+  137  kubectl get namespaces
+  138  kubectl get pods
+  139  ls
+  140  vi file2.yml 
+  141  kubectl create -f file2.yml 
+  142  kubectl delete pod multi-cont-pod
+  143  kubectl create -f file2.yml 
+  144  watch kubectl get pods
+  145  watch kubectl get pod pod2
+  146  kubectl get pod pod2
+  147  kubectl get pod pod2 -o yaml
+  148  cat podx.yml 
+  149  kubectl get pod pod2 -o json
+  150  clear
+  151  kubectl run testpod --image=httpd --dry-run=client -o yaml
+  152  kubectl run testpod --image=httpd --dry-run=client -o json
+  153  kubectl run testpod --image=httpd -l team=ct,evn=dev  --dry-run=client -o yaml
+  154  kubectl run testpod --image=httpd -l team=ct,evn=dev  --dry-run=client -o json
+  155  kubectl run testpod --image=httpd -l team=ct,evn=dev  --dry-run=client -o json > test.json
+  156  kubectl create -f test.json 
+  157  kubectl get pods
+  158  kubectl api-resources
+  159  kubectl explain replicaset
+  160  kubectl explain replicaset | grep version
+  161  kubectl explain replicaset | grep VERSION
+  162  vi replicaset.yml
+  163  kubectl create -f replicaset.yml
+  164  kubectl get replicaset
+  165  kubectl get pods
+  166  kubectl get rs -o wide
+  167  kubectl get rs1 -o wide
+  168  kubectl get replicaset -o wide
+  169  kubectl get pods -o wide
+  170  kubectl scale rs rs1 --replicas 20
+  171  kubectl get pods -o wide
+  172  kubectl scale rs rs1 --replicas 4
+  173  kubectl delete pod rs1-q6smq --force
+  174  kubectl delete pod rs1- --force
+  175  kubectl get pods -o wide
+  176  kubectl delete pod rs1-mdpp7 --force
+  177  kubectl get pods -o wide
+  178  kubectl delete pod rs1-gxbmd
+  179  kubectl get pods -o wide
+  180  vi daemonset.yml
+  181  kubectl create -f daemonset.yml 
+  182  kubectl get daemonset
+  183  kubectl get ds
+  184  kubectl get pods
+  185  kubectl get ds -o wide
+  186  kubectl get nodes
+  187  kubectl describe node master
+  188* kubectl taint node ctmaster node-role.kubernetes.io/
+  189  kubectl taint node master node-role.kubernetes.io/master:NoSchedule-
+  190  kubectl describe node master | grep -i taints
+  191  kubectl describe node master
+  192  kubectl taint node master node-role.kubernetes.io/master:NoSchedule
+  193  kubectl describe node master | grep -i taints
+  194  kubectl taint node master node-role.kubernetes.io/master:NoSchedule
+  195  kubectl describe node master | grep -i taints
+  196  kubectl taint node master node-role.kubernetes.io/master:NoSchedule-
+  197  kubectl get ds
+  198  kubectl get pods
+  199  kubectl scale ds ds1 --replicas 5
+  200  kubectl get ds -n kube-system
+  201* 
+  202  kubectl taint node master node-role.kubernetes.io/master:NoSchedule
+  203  kubectl get ds
+  204  kubectl get pods
+  205  vi deployment.yml
+  206  ls -l
+  207  kubectl create -f deployment.yml 
+  208  kubectl get pods
+  209  kubectl get rs
+  210  kubectl get deployment
+  211  kubectl get dp
+  212  kubectl describe deployment dep1
+  213  kubectl get rs
+  214  kubectl describe rs rs1
+  215  kubectl scale deployment dep1 --replicas 20
+  216  kubectl get pods
+  217  kubectl scale deployment dep1 --replicas 4
+  218  kubectl get pods
+  219  kubectl scale rs rs1 --replicas 10
+  220  kubectl get pods
+  221  kubectl scale rs rs1 --replicas 4
+  222  kubectl get pods
+  223  kubectl describe rs rs1-mk7rt
+  224* 
+  225  kubectl get pods
+  226  kubectl get pod rs1-mk7rt -o yaml
+  227  cat deployment.yml 
+  228  kubectl create deployment dep2 --image=httpd --dry-run=client -o yaml
+  229  kubectl get pods
+  230  kubectl delete pod --all
+  231  kubectl get pods
+  232  ls
+  233  kubectl delete deploy dep1 dep2
+  234  kubectl delete ds --all
+  235  kubectl delete rs  --all
+  236  kubectl delete pod --all
+  237  kubectl get pods
+  238  kubectl delete pod nitin-node1
+  239  kubectl get pods
+  240  history
+  241  history > day2commands.txt

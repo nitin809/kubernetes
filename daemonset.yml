@@ -1,0 +1,22 @@
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: ds1
+  namespace: default
+spec:
+  selector: 
+    matchLabels:
+      role: web
+  template:
+    metadata:
+      labels:
+        role: web
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: cont1
+          image: lerndevops/ctapp:v1
+          ports:
+            - name: test
+              containerPort: 8080
+
